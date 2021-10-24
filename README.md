@@ -40,3 +40,11 @@ brew install i386-elf-binutils i386-elf-gcc
   arch -x86_64 /usr/local/homebrew/bin/brew update
   ```
 
+- export those x86_64 pkgs path to .zsh
+
+  ```bash
+  export PATH=$PATH:/usr/local/Homebrew/bin/
+  ...
+  ```
+
+  

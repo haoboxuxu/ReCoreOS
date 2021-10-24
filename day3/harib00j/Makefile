@@ -10,8 +10,11 @@ ipl10.bin : ipl10.nas Makefile
 asmhead.bin : asmhead.nas Makefile
 	nasm asmhead.nas -o asmhead.bin -l asmhead.lst
 
-bootpack.hrb : bootpack.c hrb.ld Makefile
-	i386-elf-gcc -march=i486 -m32 -nostdlib -T hrb.ld bootpack.c -o bootpack.hrb
+naskfunc.o : naskfunc.nas Makefile
+	nasm -g -f elf naskfunc.nas -o naskfunc.o -l naskfunc.lst
+
+bootpack.hrb : bootpack.c hrb.ld naskfunc.o Makefile 
+	i386-elf-gcc -march=i486 -m32 -nostdlib -T hrb.ld -g bootpack.c naskfunc.o -o bootpack.hrb
 
 haribote.sys : asmhead.bin bootpack.hrb Makefile
 	cat asmhead.bin bootpack.hrb > haribote.sys
@@ -22,7 +25,7 @@ haribote.img : ipl10.bin haribote.sys Makefile
 
 # コマンド
 
-img : 
+img :
 	$(MAKE) haribote.img
 
 run :
@@ -32,6 +35,7 @@ run :
 clean :
 	-$(DEL) *.bin
 	-$(DEL) *.lst
+	-$(DEL) *.o
 	-$(DEL) *.sys
 	-$(DEL) *.hrb
 

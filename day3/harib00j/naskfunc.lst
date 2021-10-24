@@ -1,0 +1,23 @@
+     1                                  ; naskfunc
+     2                                  ; TAB=4
+     3                                  
+     4                                  ;[FORMAT "WCOFF"]				; 创建目标文件的模式; 删除此行，NASM报错
+     5                                  [BITS 32]						; 制作32位模式机器语言
+     6                                  
+     7                                  
+     8                                  ; 制作目标文件的信息
+     9                                  
+    10                                  ;[FILE "naskfunc.nas"]			; 源文件名 ; 删除此行，NASM报错
+    11                                  
+    12                                  		;GLOBAL	_io_hlt			; 程序中包含的函数字名
+    13                                  		GLOBAL	io_hlt			; NASM错误，修复
+    14                                  
+    15                                  
+    16                                  ; 以下是实际的函数
+    17                                  
+    18                                  [SECTION .text]		; 目标文件中写了这些之后再写程序
+    19                                  
+    20                                  ;_io_hlt:	; void io_hlt(void);
+    21                                  io_hlt:	; void io_hlt(void);	; NASM错误，修复
+    22 00000000 F4                      		HLT
+    23 00000001 C3                      		RET
